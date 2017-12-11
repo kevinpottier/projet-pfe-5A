@@ -6,6 +6,7 @@
 package projet_airfrance;
 
 import java.io.File;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 
@@ -107,16 +108,18 @@ public class mainWindow extends javax.swing.JPanel {
         if(fileIsSelected == JFileChooser.APPROVE_OPTION){
             File[] fs = fileChooser.getSelectedFiles();
             //String[] PathTab = {""};
-            String pathList = "<html>";
-          
-            for( int i=0; i<fs.length; ++i){
+            String pathListStr = "<html>";
+            ArrayList pathList = new ArrayList();
+            
+            for(int i=0; i<fs.length; i++){
                 // Stockage du chemin absolu de tous les fichiers sélectionnés
-                pathList += fs[i].getAbsolutePath() + "<br>";
+                pathListStr += fs[i].getAbsolutePath() + "<br>";
+                pathList.add(fs[i].getAbsolutePath());
             }
-            pathList += "</html>";
+            pathListStr += "</html>";
             
             // Affichage des chemins
-            pathFile.setText(pathList);
+            pathFile.setText(pathListStr);
         }
     }//GEN-LAST:event_selectFileActionPerformed
 
