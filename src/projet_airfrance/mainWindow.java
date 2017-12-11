@@ -5,6 +5,10 @@
  */
 package projet_airfrance;
 
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+
 /**
  *
  * @author Kevin
@@ -27,19 +31,101 @@ public class mainWindow extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        selectFile = new javax.swing.JButton();
+        SoftwareTitle = new javax.swing.JLabel();
+        logoAFI = new javax.swing.JLabel();
+        pathFile = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        pathFile3 = new javax.swing.JLabel();
+
+        setMaximumSize(new java.awt.Dimension(400, 400));
+
+        selectFile.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
+        selectFile.setText("Select PDF Files");
+        selectFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectFileActionPerformed(evt);
+            }
+        });
+
+        SoftwareTitle.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
+        SoftwareTitle.setText("SOFTWARE NAME");
+
+        logoAFI.setIcon(new javax.swing.ImageIcon("C:\\Users\\Kevin\\Documents\\ESIEA\\5A\\PFE\\logoAFIKLMEM.jpg")); // NOI18N
+        logoAFI.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(SoftwareTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
+                .addComponent(logoAFI, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(77, 77, 77)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pathFile3)
+                    .addComponent(jLabel1)
+                    .addComponent(pathFile)
+                    .addComponent(selectFile))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(logoAFI)
+                    .addComponent(SoftwareTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(selectFile)
+                .addGap(18, 18, 18)
+                .addComponent(pathFile)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(pathFile3)
+                .addGap(96, 96, 96))
         );
+
+        jLabel1.getAccessibleContext().setAccessibleName("pathFile2");
+        pathFile3.getAccessibleContext().setAccessibleName("pathFile3");
     }// </editor-fold>//GEN-END:initComponents
 
+    private void selectFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectFileActionPerformed
+        //Ouverture de l'explorateur de fichiers
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setMultiSelectionEnabled(true) ;
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        
+        int fileIsSelected = fileChooser.showOpenDialog(this);
+        
+        //Si un fichier est sélectionné
+        if(fileIsSelected == JFileChooser.APPROVE_OPTION){
+            File[] fs = fileChooser.getSelectedFiles();
+            //String[] PathTab = {""};
+            String pathList = "<html>";
+          
+            for( int i=0; i<fs.length; ++i){
+                // Stockage du chemin absolu de tous les fichiers sélectionnés
+                pathList += fs[i].getAbsolutePath() + "<br>";
+            }
+            pathList += "</html>";
+            
+            // Affichage des chemins
+            pathFile.setText(pathList);
+        }
+    }//GEN-LAST:event_selectFileActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel SoftwareTitle;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel logoAFI;
+    private javax.swing.JLabel pathFile;
+    private javax.swing.JLabel pathFile3;
+    private javax.swing.JButton selectFile;
     // End of variables declaration//GEN-END:variables
 }
