@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pfe_airfrance;
+package projet_airfrance;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -20,7 +18,7 @@ import javax.swing.JPanel;
  *
  * @author Asus-Pc
  */
-public class PFE_AirFrance {
+public class Projet_AirFrance {
 
     private static JFrame frame = new JFrame();
     private static JPanel pan = new JPanel();
@@ -67,4 +65,5 @@ public class PFE_AirFrance {
             }
           });
     }
+    
 }
