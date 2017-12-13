@@ -7,8 +7,12 @@ package projet_airfrance;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -37,8 +41,17 @@ public class mainWindow extends javax.swing.JPanel {
         
         for (int i=0; i<tabSize; i++){
             pdfTab[i][0] = i+1;
-            System.out.println(p_pathList.get(i));
-            pdfTab[i][1] = p_pathList.get(i).toString();
+            //System.out.println(p_pathList.get(i));
+            
+            
+            // Ici le code pour avoir juste le nom du doc
+            String[] chemin = pathList.get(i).toString().split(Pattern.quote("\\"));
+            String Nomdupdf = chemin[chemin.length - 1];
+            pdfTab[i][1] = Nomdupdf;
+            
+            
+            // Below, le code pour afficher l'adresse du doc à la place du nom
+            //pdfTab[i][1] = p_pathList.get(i).toString();
         }    
     }
 
@@ -229,6 +242,30 @@ public class mainWindow extends javax.swing.JPanel {
 
     private void openSearcherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openSearcherActionPerformed
         // TODO add your handling code here:
+        System.out.println("Vous avez cliqu� ici.");
+        int index = jTable1.getSelectedRow();
+        if(index == -1){index = 0;}
+			 JFrame search = new JFrame();
+			 search.setSize(300, 300);
+                         String[] chemin = pathList.get(index).toString().split(Pattern.quote("\\"));
+                         String Nomdupdf = chemin[chemin.length - 1];
+                         int Numdupdf = index+1;
+			 search.setTitle("N°:"+Numdupdf+"  | "+" Name:"+Nomdupdf);
+			 JPanel form = new JPanel();
+			 search.setContentPane(form);
+			 JLabel fig=new JLabel("Figure:");
+			 form.add(fig);
+			 JTextField champfig = new JTextField(10);
+			 form.add(champfig);
+			 JLabel itm=new JLabel("Item:");
+			 form.add(itm);
+			 JTextField item = new JTextField(5);
+			 form.add(item);
+			 JLabel pn=new JLabel("P/N:");
+			 form.add(pn);
+			 JLabel pno=new JLabel("P/N optionnal:");
+			 form.add(pno);
+			 search.setVisible(true);
     }//GEN-LAST:event_openSearcherActionPerformed
 
     private void removePdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removePdfActionPerformed
