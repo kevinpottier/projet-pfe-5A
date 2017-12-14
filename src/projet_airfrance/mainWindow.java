@@ -7,8 +7,12 @@ package projet_airfrance;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -16,11 +20,39 @@ import javax.swing.JLabel;
  */
 public class mainWindow extends javax.swing.JPanel {
 
+    
+    //Attributs
+    ArrayList pathList = new ArrayList();
+    File[] fs;
+    Object[][] pdfTab;
+    
     /**
      * Creates new form NewJPanel
      */
     public mainWindow() {
         initComponents();
+    }
+    
+    public void initPdfTab(ArrayList p_pathList)
+    {   
+        int tabSize = p_pathList.size();
+        
+        pdfTab = new Object[tabSize][2];
+        
+        for (int i=0; i<tabSize; i++){
+            pdfTab[i][0] = i+1;
+            //System.out.println(p_pathList.get(i));
+            
+            
+            // Ici le code pour avoir juste le nom du doc
+            String[] chemin = pathList.get(i).toString().split(Pattern.quote("\\"));
+            String Nomdupdf = chemin[chemin.length - 1];
+            pdfTab[i][1] = Nomdupdf;
+            
+            
+            // Below, le code pour afficher l'adresse du doc à la place du nom
+            //pdfTab[i][1] = p_pathList.get(i).toString();
+        }    
     }
 
     /**
@@ -35,9 +67,12 @@ public class mainWindow extends javax.swing.JPanel {
         selectFile = new javax.swing.JButton();
         SoftwareTitle = new javax.swing.JLabel();
         logoAFI = new javax.swing.JLabel();
-        pathFile = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        pathFile3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        removePdf = new javax.swing.JButton();
+        openSearcher = new javax.swing.JButton();
+        openPdf = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setMaximumSize(new java.awt.Dimension(400, 400));
 
@@ -52,49 +87,115 @@ public class mainWindow extends javax.swing.JPanel {
         SoftwareTitle.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
         SoftwareTitle.setText("SOFTWARE NAME");
 
-        logoAFI.setIcon(new javax.swing.ImageIcon("C:\\Users\\Kevin\\Documents\\ESIEA\\5A\\PFE\\logoAFIKLMEM.jpg")); // NOI18N
         logoAFI.setText("jLabel2");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(SoftwareTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
-                .addComponent(logoAFI, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(77, 77, 77)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pathFile3)
-                    .addComponent(jLabel1)
-                    .addComponent(pathFile)
-                    .addComponent(selectFile))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(logoAFI)
-                    .addComponent(SoftwareTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(selectFile)
-                .addGap(18, 18, 18)
-                .addComponent(pathFile)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(pathFile3)
-                .addGap(96, 96, 96))
-        );
+        removePdf.setText("Retirer");
+        removePdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removePdfActionPerformed(evt);
+            }
+        });
 
-        jLabel1.getAccessibleContext().setAccessibleName("pathFile2");
-        pathFile3.getAccessibleContext().setAccessibleName("pathFile3");
-    }// </editor-fold>//GEN-END:initComponents
+        openSearcher.setText("Chercher");
+        openSearcher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openSearcherActionPerformed(evt);
+            }
+        });
+
+        openPdf.setText("Ouvrir");
+        openPdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openPdfActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            pdfTab,
+            new String [] {
+                "N°", "Name"
+            })
+            {
+                boolean[] canEdit = new boolean[] {
+                    false, false, false, false
+                };
+
+                public boolean isCellEditable(int rowIndex, int columnIndex){
+                    return canEdit [columnIndex];
+                }
+
+            });
+            jScrollPane1.setViewportView(jTable1);
+
+            javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+            jPanel1.setLayout(jPanel1Layout);
+            jPanel1Layout.setHorizontalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 452, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(openPdf)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                                .addComponent(openSearcher)
+                                .addGap(38, 38, 38)
+                                .addComponent(removePdf)
+                                .addGap(51, 51, 51)))
+                        .addContainerGap()))
+            );
+            jPanel1Layout.setVerticalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 176, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(openPdf)
+                            .addComponent(openSearcher)
+                            .addComponent(removePdf))
+                        .addContainerGap()))
+            );
+
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+            this.setLayout(layout);
+            layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(45, 45, 45)
+                    .addComponent(selectFile)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(36, 36, 36)
+                            .addComponent(SoftwareTitle)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(logoAFI, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap())
+            );
+            layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(23, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(SoftwareTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(logoAFI))
+                    .addGap(18, 18, 18)
+                    .addComponent(selectFile)
+                    .addGap(18, 18, 18)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            );
+        }// </editor-fold>//GEN-END:initComponents
 
     private void selectFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectFileActionPerformed
         //Ouverture de l'explorateur de fichiers
@@ -106,29 +207,84 @@ public class mainWindow extends javax.swing.JPanel {
         
         //Si un fichier est sélectionné
         if(fileIsSelected == JFileChooser.APPROVE_OPTION){
-            File[] fs = fileChooser.getSelectedFiles();
-            //String[] PathTab = {""};
-            String pathListStr = "<html>";
-            ArrayList pathList = new ArrayList();
+            
+            pathList.clear();
+            fs = fileChooser.getSelectedFiles();
             
             for(int i=0; i<fs.length; i++){
-                // Stockage du chemin absolu de tous les fichiers sélectionnés
-                pathListStr += fs[i].getAbsolutePath() + "<br>";
+                
+                //Stockage du chemin absolu de tous les fichiers sélectionnés
+                //pathListStr += fs[i].getAbsolutePath() + "<br>";
                 pathList.add(fs[i].getAbsolutePath());
+                
+                //System.out.print(pathList.get(i));
             }
-            pathListStr += "</html>";
             
-            // Affichage des chemins
-            pathFile.setText(pathListStr);
+            initPdfTab(pathList);
+            removeAll();
+            initComponents();
+            
+            
         }
     }//GEN-LAST:event_selectFileActionPerformed
 
+    private void openPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openPdfActionPerformed
+
+        int index = jTable1.getSelectedRow();
+
+        if(index == -1){index = 0;}
+
+        Pdf pdf_1 = new Pdf(pathList.get(index).toString());
+
+        pdf_1.openPdf();
+
+    }//GEN-LAST:event_openPdfActionPerformed
+
+    private void openSearcherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openSearcherActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Vous avez cliqu� ici.");
+        int index = jTable1.getSelectedRow();
+        if(index == -1){index = 0;}
+			 JFrame search = new JFrame();
+			 search.setSize(300, 300);
+                         String[] chemin = pathList.get(index).toString().split(Pattern.quote("\\"));
+                         String Nomdupdf = chemin[chemin.length - 1];
+                         int Numdupdf = index+1;
+			 search.setTitle("N°:"+Numdupdf+"  | "+" Name:"+Nomdupdf);
+			 JPanel form = new JPanel();
+			 search.setContentPane(form);
+			 JLabel fig=new JLabel("Figure:");
+			 form.add(fig);
+			 JTextField champfig = new JTextField(10);
+			 form.add(champfig);
+			 JLabel itm=new JLabel("Item:");
+			 form.add(itm);
+			 JTextField item = new JTextField(5);
+			 form.add(item);
+			 JLabel pn=new JLabel("P/N:");
+			 form.add(pn);
+			 JLabel pno=new JLabel("P/N optionnal:");
+			 form.add(pno);
+			 search.setVisible(true);
+    }//GEN-LAST:event_openSearcherActionPerformed
+
+    private void removePdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removePdfActionPerformed
+
+        //int index = jTable1.getSelectedRow();
+
+        //path = ArrayUtils.removeElement(path, index);
+
+    }//GEN-LAST:event_removePdfActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel SoftwareTitle;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel logoAFI;
-    private javax.swing.JLabel pathFile;
-    private javax.swing.JLabel pathFile3;
+    private javax.swing.JButton openPdf;
+    private javax.swing.JButton openSearcher;
+    private javax.swing.JButton removePdf;
     private javax.swing.JButton selectFile;
     // End of variables declaration//GEN-END:variables
 }
