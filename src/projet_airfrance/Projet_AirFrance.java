@@ -27,7 +27,7 @@ public class Projet_AirFrance {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        frame.setSize(500, 250);
+        frame.setSize(500, 350);
         frame.add(panel);
         frame.setVisible(true);
     }

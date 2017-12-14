@@ -87,6 +87,7 @@ public class mainWindow extends javax.swing.JPanel {
         SoftwareTitle.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
         SoftwareTitle.setText("SOFTWARE NAME");
 
+        logoAFI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projet_airfrance/logo_AFI/logoAFIKLMEM.jpg"))); // NOI18N
         logoAFI.setText("jLabel2");
 
         removePdf.setText("Retirer");
@@ -186,7 +187,7 @@ public class mainWindow extends javax.swing.JPanel {
             layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(23, Short.MAX_VALUE)
+                    .addContainerGap(12, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(SoftwareTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(logoAFI))
